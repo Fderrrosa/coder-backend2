@@ -1,9 +1,9 @@
-class DatosU {
-    constructor(nombre, apellido, mascotas, libros){
+class DatosUs {
+    constructor(nombre, apellido, libros, mascotas) {
         this._nombre = nombre;
         this._apellido = apellido;
-        this._mascotas = mascotas;
         this._libros = libros;
+        this._mascotas = mascotas;;
     }
 
     getFullName() {
@@ -25,27 +25,32 @@ class DatosU {
     getBookNames() {
         return this._libros.map( (libro) => libro.nombre)
     }
-
 }
 
 const libros = [
-     {
+    {
         nombre: "Cometierra",
         autor: "Dolores Reyes"
-     },
-     {
+    },
+    {
         nombre: "Las Malas",
         autor: "Camila Sosa Villada"
-     }
+    }
+
 ]
 
-const personNew = new DatosU("Sofia", "Gonzalez", libros, ["Gato", "Perro", "hamsteres"]);
+const newPerson = new DatosUs("Sofia", "Gonzales", libros ,["Perro", "Gato"])
 
-console.log(personNew.getFullName());
-console.log(personNew.getBookNames());
-personNew.addBook("CAOS Nadie puede decirte quien sos", "Magalí Tajes")
-console.log(personNew.getFullName());
-console.log(personNew.countMascotas());
-personNew.addMascota("Caballo");
-console.log(personNew.countMascotas());
+console.log(newPerson.getFullName());
+// Sofia Gonzalez
+console.log("Libros- Nombre y Autor " + newPerson.getBookNames()); 
+// Cometierra - Dolores Reyes / Las Malas - Camila Sosa Villada
+newPerson.addBook("CAOS Nadie puede decirte quien sos", "Magalí Tajes")
+console.log("Libros- Nombre y Autor " + newPerson.getBookNames()); 
+// Cometierra - Dolores Reyes / Las Malas - Camila Sosa Villada / CAOS Nadie puede decirte quien sos - Magalí Tajes
+console.log("Cantidad Mascotas " + newPerson.countMascotas()); 
+// 2 mascotas - Perro y Gato
+newPerson.addMascota('Loro');
+console.log( "Cantidad Mascotas " +  newPerson.countMascotas()); 
+// 3 mascotas - Perro, Gato y Loro
 
