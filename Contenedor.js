@@ -5,6 +5,7 @@ const fs = require('fs');
 class Contenedor {
     constructor (productos) {
         this.ruta = productos
+        console.log("prueba");
     }
 }
 
@@ -12,13 +13,13 @@ class Contenedor {
 
     getAll = async () => {
         try {
-            const stock = await fs.promises.readFile(this.ruta, 'utf-8')
+            const stock = await promises.readFile(this.ruta, 'utf-8')
             
             return JSON.parse(stock);
 
         } catch (error) {
-            await fs.promises.writeFile(this.ruta, JSON.stringify([], null, 1))
-            const stock = await fs.promises.readFile(this.ruta, 'utf-8')
+            await promises.writeFile(this.ruta, JSON.stringify([], null, 1))
+            const stock = await promises.readFile(this.ruta, 'utf-8')
             
             return JSON.parse(stock);
         }
@@ -30,7 +31,7 @@ class Contenedor {
         arrProductos.push(producto);
 
         try {
-            await fs.promises.writeFile(this.ruta, JSON.stringify(arrProductos, null, 4))
+            await promises.writeFile(this.ruta, JSON.stringify(arrProductos, null, 4))
             return producto.id
         } catch (error) {
             throw new Error('No se guardó el producto')
@@ -50,14 +51,14 @@ class Contenedor {
         const productoBorrado = arrProductos.filter(p => p.id !== id)
 
         try {
-            await fs.promises.writeFile(this.ruta, JSON.stringify(productoBorrado, null, 1))
+            await promises.writeFile(this.ruta, JSON.stringify(productoBorrado, null, 1))
         } catch (error) {
             throw new Error('No se pudo actualizar', error)
         }
     }
 
     deleteAll = async () => {
-        return await fs.promises.writeFile(this.ruta, JSON.stringify([], null, 2))
+        return await promises.writeFile(this.ruta, JSON.stringify([], null, 2))
     }
 
 
@@ -74,7 +75,7 @@ const test = async () => {
 
 test()
 
-module.exports = Contenedor;
+//export default Contenedor;
 
 
 
