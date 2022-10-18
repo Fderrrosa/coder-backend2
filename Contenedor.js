@@ -6,6 +6,9 @@ class Contenedor {
     constructor (productos) {
         this.ruta = productos
     }
+}
+
+
 
     getAll = async () => {
         try {
@@ -57,7 +60,7 @@ class Contenedor {
         return await fs.promises.writeFile(this.ruta, JSON.stringify([], null, 2))
     }
 
-}
+
 
 const db = new Contenedor('productos.txt')
 

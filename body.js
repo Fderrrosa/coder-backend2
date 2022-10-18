@@ -1,3 +1,6 @@
+const fs = require("fs");
+
+
 class DatosUs {
     constructor(nombre, apellido, libros, mascotas) {
         this._nombre = nombre;
