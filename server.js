@@ -1,40 +1,32 @@
 const express = require('express');
+const fs = require('fs');
+const Contenedor = require('./contenedor');
+
 const app = express();
-
-//PUERTO
-const PORT=8080;
-
-//IMPORT DE LAS CLASES
-const Container = require('./productos.txt');
-const productosContainer = new Container();
-
-//RUTAS - ENDPOINTS
-
-//Obtener todos los productos
-app.get('/productos', (req, res) => {
-    let allProducts = productosContainer.getAll();
-    if (allProducts.length > 0) {
-        res.status(200).send(allProducts);
-    } else {
-        res.status(404).send('No hay productos');
-    }
-});
-
-//Obtener un producto aleatorio
-app.get('/productosRandom', (req, res) => {
-    let randomProduct = productosContainer.getRandomProduct();
-    if (randomProduct) {
-        res.status(200).send(randomProduct);
-    } else {
-        res.status(404).send('No hay productos');
-    }
-});
+const PORT = process.env.PORT || 8080;
+const contenedor = new Contenedor('productos.txt');
 
 
-//INICIO DEL SERVIDOR EN EL PUERTO 8080
 const server = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-server.on('error', (err) => {
-    console.log(`Error: ${err}`);
+
+
+app.get('/productos', async (req, res) => {
+    const products = await contenedor.getAll();
+    res.json(products);
+});
+
+
+app.get('/productoRandom', async (req, res) => {
+    const products = await contenedor.getAll();
+    res.json(products[Math.floor(Math.random() * products.length)]);
+});
+
+app.get('/', (req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-type', 'text/html');
+    var html = fs.readFileSync('./index.html');
+    res.write(html);
+    res.end();
 });
