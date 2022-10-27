@@ -1,4 +1,4 @@
-/*
+
 //1. importar express
 const express = require("express");
 
@@ -17,4 +17,3 @@ app.get("/",(request, response)=>{
 app.get("/user",(request, response)=>{
     response.json({nombre:"pepito", edad:30})
 })
-*/
