@@ -22,5 +22,17 @@
     "price": 320,
     "thumbnail": "https://offcorss.vteximg.com.br/arquivos/ids/744125-460-540/51048651-Azul-13-4404_1.jpg?v=637844236663900000",
     "id": 5
+  },
+  {
+    "title": "camisa deportiva",
+    "price": 520,
+    "thumbnail": "https://falabella.scene7.com/is/image/FalabellaCO/8263644_1?wid=800&hei=800&qlt=70",
+    "id": 6
+  },
+  {
+    "title": "camisa niño",
+    "price": 320,
+    "thumbnail": "https://offcorss.vteximg.com.br/arquivos/ids/744125-460-540/51048651-Azul-13-4404_1.jpg?v=637844236663900000",
+    "id": 7
   }
 ]
