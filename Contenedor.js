@@ -100,3 +100,4 @@ const getData = async()=>{
 getData();
 
 
+module.export = Contenedor
