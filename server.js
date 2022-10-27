@@ -6,9 +6,11 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const contenedor = new Contenedor('productos.txt');
 
+app.listen(8080,()=>console.log("server listening on port 8080"));
+
 
 const server = app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`El server esta corriendo en el puerto ${PORT}`);
 });
 
 
