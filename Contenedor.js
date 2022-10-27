@@ -4,11 +4,7 @@ class Contenedor {
     constructor(name){
         this.filename = name;
     }
-    // const producto1={
-    //     title: "camisa deportiva",
-    //     price: 520,
-    //     thumbnail: "https://falabella.scene7.com/is/image/FalabellaCO/8263644_1?wid=800&hei=800&qlt=70"
-    // }
+    
     async save(product){
         try {
             if(fs.existsSync(this.filename)){
