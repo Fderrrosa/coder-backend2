@@ -1,103 +1,76 @@
-const fs = require("fs");
+const fs = require('fs');
 
 class Contenedor {
-    constructor(name){
-        this.filename = name;
+    constructor(fileName){
+        this.fileName = fileName;
     }
-    
-    async save(product){
-        try {
-            if(fs.existsSync(this.filename)){
-                const productos = await this.getAll();
-                if(productos.length>0){
-                    //agregar un producto adicional
-                    const lastId =productos[productos.length-1].id+1;
-                    product.id = lastId;
-                    productos.push(product);
-                    await fs.promises.writeFile(this.filename,JSON.stringify(productos,null,2));
-                } else{
-                    //agregamos un primer producto
-                    product.id = 1;
-                    await fs.promises.writeFile(this.filename,JSON.stringify([product],null,2));
-                }
-            } else {
-                product.id = 1;
-                await fs.promises.writeFile(this.filename,JSON.stringify([product],null,2));
-            }
-        } catch (error) {
-            return "El producto no pudo ser guardado";
+
+    async createIfNotExist(){
+        try{
+            await fs.promises.access(this.fileName)
+        }catch(err){
+            await fs.promises.writeFile(this.fileName, '[]', 'utf8');
         }
     }
 
     async getAll(){
         try {
-            const contenido = await fs.promises.readFile(this.filename,"utf-8");
-            if(contenido.length>0){
-                const productos = JSON.parse(contenido);
-                return productos;
-            } else{
-                return [];
-            }
+            return JSON.parse(await fs.promises.readFile(this.fileName, 'utf8'));
         } catch (error) {
-            return "El archivo no se puede ser leido";
+            throw new Error(error);
+        }
+    }
+
+    async save(content){
+        try {
+            const data = await this.getAll();
+            content.id = (data[data.length - 1].id || 0) + 1;
+            data.push(content);
+            await fs.promises.writeFile(this.fileName, JSON.stringify(data, null, 2), 'utf8');
+        } catch (error) {
+            if(error.message.includes('ENOENT')){
+                await this.createIfNotExist();
+                return this.save(content);
+            } else {
+                throw new Error(error);
+            }
         }
     }
 
     async getById(id){
         try {
-            //obtener todos los productos.
-            const productos = await this.getAll();
-            //buscar nuestro producto por el id
-            const producto = productos.find(elemento=>elemento.id === id);
-            return producto;
+            const data = await this.getAll();
+            return data.find(item => item.id == id);
         } catch (error) {
-            return "El producto no se encuentra";
+            throw new Error(error);
         }
     }
 
     async deleteById(id){
-        //[1,2,3,4,5].
-        //[1,2,4,5]
         try {
-            const productos = await this.getAll();
-            const newProducts = productos.filter(elemento=>elemento.id !== id);
-            await fs.promises.writeFile(this.filename,JSON.stringify(newProducts,null,2));
-            return `El producto con el id ${id} fue elimnado`;
-        } catch (error) {
-            return "El elemento no puede ser eliminado"
+            const data = await this.getAll();
+            const newData = data.filter(item => item.id != id);
+            await fs.promises.writeFile(this.fileName, JSON.stringify(newData, null, 2), 'utf8');
+        } catch(error){
+            throw new Error(error);
         }
     }
 
-    getName(){
-        return this.filename;
+    async deleteAll(){
+        try {
+            await fs.promises.writeFile(this.fileName, '[]', 'utf8');
+        } catch(error){
+            throw new Error(error);
+        }
     }
+
+    
+  getRandomProduct(){
+    let data = fs.readFileSync('./productos.txt');
+    data = JSON.parse(data);
+    let randomIndex = Math.floor(Math.random() * data.length);
+    return data[randomIndex]
+  }
 }
 
-const producto1={
-    title: "camisa deportiva",
-    price: 520,
-    thumbnail: "https://falabella.scene7.com/is/image/FalabellaCO/8263644_1?wid=800&hei=800&qlt=70"
-}
-const producto2={
-    title: "camisa niño",
-    price: 320,
-    thumbnail: "https://offcorss.vteximg.com.br/arquivos/ids/744125-460-540/51048651-Azul-13-4404_1.jpg?v=637844236663900000"
-}
-
-const manejadorProductos = new Contenedor("productos.txt");
-console.log(manejadorProductos);
-
-const getData = async()=>{
-    //guardar un producto
-    await manejadorProductos.save(producto1);
-    await manejadorProductos.save(producto2);
-    const productos = await manejadorProductos.getAll();
-    console.log("productos",productos);
-    const productoEncontrado = await manejadorProductos.getById(1);
-    console.log("producto encontrado>", productoEncontrado);
-    await manejadorProductos.deleteById(1);
-}
-getData();
-
-
-module.export = Contenedor
+module.exports = Contenedor;
