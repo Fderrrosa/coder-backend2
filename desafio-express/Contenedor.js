@@ -71,6 +71,71 @@ class Contenedor {
     let randomIndex = Math.floor(Math.random() * data.length);
     return data[randomIndex]
   }
+
+
+
+
+
+
+
+
+
+
+
+
+//PRUEBA DESAFIO API
+async updateById(id, newData) {
+    try {
+      id = Number(id);
+      const data = await this.getData();
+      const parsedData = JSON.parse(data);
+      const objectIdToBeUpdated = parsedData.find(
+        (producto) => producto.id === id
+      );
+      if (objectIdToBeUpdated) {
+        const index = parsedData.indexOf(objectIdToBeUpdated);
+        const {title, price, photo} = newData;
+
+        parsedData[index]['title'] = title;
+        parsedData[index]['price'] = price;
+        parsedData[index]['photo'] = photo;
+        await fs.promises.writeFile(this._filename, JSON.stringify(parsedData));
+        return true;
+      } else {
+        console.log(`ID ${id} does not exist in the file`);
+        return null;
+      }
+
+    } catch (error) {
+      `Error Code: ${error.code} | There was an error when trying to update an element by its ID (${id})`
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 module.exports = Contenedor;

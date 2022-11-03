@@ -3,15 +3,48 @@
     "title": "Zapatillas Deportivas",
     "price": 8.5,
     "photo": "https://res.cloudinary.com/dngbc9awr/image/upload/v1661611424/samples/ecommerce/shoes.png",
-    "id": 2
+    "id": 1
   },
   {
     "title": "Cartera de Cuero",
     "price": 45.5,
     "photo": "https://res.cloudinary.com/dngbc9awr/image/upload/v1661611428/samples/ecommerce/leather-bag-gray.jpg",
+    "id": 2
+  },
+  {
+    "title": "campera de cuero",
+    "price": "50000",
+    "photo": "HolaPrueba",
     "id": 3
+  },
+  {
+    "title": "pruebaZapatillas",
+    "price": "pruebaZapatillas-$5000",
+    "photo": "https://res.cloudinary.com/dngbc9awr/image/upload/v1661611444/cld-sample-5.jpg",
+    "id": 4
+  },
+  {
+    "title": "PruebaComida",
+    "price": "PruebaComida$3500",
+    "photo": "https://res.cloudinary.com/dngbc9awr/image/upload/v1661611444/cld-sample-4.jpg",
+    "id": 5
+  },
+  {
+    "title": "PruebaMontaña",
+    "price": "PruebaMontaña$11000",
+    "photo": "https://res.cloudinary.com/dngbc9awr/image/upload/v1661611443/cld-sample-2.jpg",
+    "id": 6
+  },
+  {
+    "title": "pruebaMIl",
+    "price": "pruebaMIL",
+    "photo": "url.com",
+    "id": 7
+  },
+  {
+    "title": "MeCanse",
+    "price": "DeLasPruebas",
+    "photo": "https://res.cloudinary.com/dngbc9awr/image/upload/v1661611417/sample.jpg",
+    "id": 8
   }
-  ]
-
-
- 
+]
